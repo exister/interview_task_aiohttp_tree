@@ -1,0 +1,9 @@
+.ssh_keys
+
+# Basics
+*.py[cod]
+__pycache__
+
+# Pycharm
+.idea/*
+.pycharm_helpers

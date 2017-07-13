@@ -1,0 +1,37 @@
+version: '2.1'
+
+services:
+  db:
+    image: devhub/postgres:latest
+    build: ./provisioning/services/postgres
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+    networks:
+      - back
+    env_file:
+      - .env
+
+  web:
+    image: devhub/web:latest
+    build: ./src
+    ports:
+      - 8000:8000
+    volumes:
+      - ./src:/app
+    depends_on:
+      - db
+    networks:
+      - front
+      - back
+    env_file:
+      - .env
+
+volumes:
+  pg_data:
+    driver: local
+
+networks:
+  front:
+  back:
